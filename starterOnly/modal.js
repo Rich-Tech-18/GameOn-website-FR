@@ -1,3 +1,5 @@
+
+// fonction pour que la navigation du menu sois reponsive
 function editNav() {
   var x = document.getElementById("myTopnav");
   let logo = document.querySelector('.header-logo');
@@ -9,7 +11,7 @@ function editNav() {
   }
 }
 
-// DOM Elements
+// Element du DOM
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
@@ -17,16 +19,30 @@ const cruxModal = document.querySelector(".close");
 const form = document.querySelector('form');
 const modalBody = document.querySelector('.modal-body');
 const input = document.querySelectorAll('input');
+const prenom = document.querySelector('#Prénom');
+const nom = document.querySelector('#nom');
+const mail = document.querySelector('#mail');
+const birthdate = document.querySelector('#birthdate');
+const quantity = document.querySelector('#quantity');
+const value = document.getElementsByName('location');
+const buttonSubmit = document.querySelector('.btn-submit');
+const checkCondition = document.getElementById('checkbox1')
+let prenomDisabled = false;
+let nameDisabled = false;
+let dateDisabled = false;
+let mailDisabled = false;
+let quantityDisabled = false;
+let disableRadio = false;
 
-// launch modal event
+// ouvre la modal au click
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
-// launch modal form
+// fonction qui ouvre la modal
 function launchModal() {
   modalbg.style.display = "block";
 }
 
-// close modal form 
+// fonoction généraliste pour ajouter tout type d'événement qui s'adapte sur tout les navigateurs
 
 function addEvent(element, evnt, funct){
   if (element.attachEvent){
@@ -38,6 +54,8 @@ function addEvent(element, evnt, funct){
 };
 
 
+// function qui ferme la modal au click sur la croix
+
 addEvent(cruxModal, 'click', function(){
     modalbg.style.display = "none";
     for(let i = 0; i <=12; i++){
@@ -45,9 +63,11 @@ addEvent(cruxModal, 'click', function(){
       input[i].value = '';
       input[i].checked = false;
     }
-    // window.location.reload();
+
 
 });
+
+// fonction qui ferme la modal si on cliquer sur l'éxtérieur de la modal
 
 addEvent(window, 'click', function(event){
     if(event.target == modalbg){
@@ -63,20 +83,10 @@ addEvent(window, 'click', function(event){
   );
 
 
-// cruxModal.onclick = function() {
-//   modalbg.style.display = "none";
-// }
-
-// cruxModal.addEventListener('click', function(){
-//   modalbg.style.display = "none";
-// })
 
 
-// window.onclick = function(event) {
-//   if (event.target == modalbg) {
-//     modalbg.style.display = "none";
-//   }
-// }
+
+// validation du formulaire, si la condition est vrai, remise à zéro des champs du formulaire
 
 function validate() {
   if (checkCondition.checked === false){
@@ -101,32 +111,16 @@ function validate() {
     form.style.display = 'block';
     newDiv.remove();
     newButton.remove();
-    // form.reset();
     for(let i = 0; i <=12; i++){
       input[i].style.border = 'none'
       input[i].value = '';
       input[i].checked = false;
     }
-    // window.location.reload();
   });
 }
 };
 
-const prenom = document.querySelector('#Prénom');
-const nom = document.querySelector('#nom');
-const mail = document.querySelector('#mail');
-const birthdate = document.querySelector('#birthdate');
-const quantity = document.querySelector('#quantity');
-const value = document.getElementsByName('location');
-const buttonSubmit = document.querySelector('.btn-submit');
-const checkCondition = document.getElementById('checkbox1')
-let prenomDisabled = false;
-let nameDisabled = false;
-let dateDisabled = false;
-let mailDisabled = false;
-let quantityDisabled = false;
-let disableRadio = false;
-
+// fonction pour tester les erreurs du formulaire
 
 function testFormulaireErreur(champsFormulaire){
     champsFormulaire.style.border = '2px solid #e54858';
@@ -137,16 +131,20 @@ function testFormulaireErreur(champsFormulaire){
     }
 };
 
+// fonction pour tester la validation
+
 function testFormulaireValide(champsFormulaire){
   champsFormulaire.style.border = '2px solid green';
   document.querySelector('#'+champsFormulaire.name).textContent = ' ';
 };
 
-
+//fonction pour stocker une REGEX
 
 function regex(regex){
   return regex;
 };
+
+// fonction pour tester si tout les champs du formulaire sont bien remplis.
 
 function isDisabledSubmit(){
   if (prenomDisabled === true && nameDisabled === true && dateDisabled === true && mailDisabled === true && quantityDisabled === true && disableRadio === true){
@@ -156,6 +154,8 @@ function isDisabledSubmit(){
   }
 }
 isDisabledSubmit();
+
+// suite d'event aux input du formulaire qui teste la validité des champs souhaité par des REGEX
 
 addEvent(prenom, 'input', function(e){
   if(regex(/[a-zA-Z]{2}/.test(e.target.value))){
@@ -230,14 +230,12 @@ for(let i=0; i<=5; i++){
     }
   }})};
 
+  // fait apparaitre un message d'alert si les conditions général ne sont pas cocher
 
-  // buttonSubmit.addEventListener('click', function(e){
-  //   if (checkCondition.checked === false){
     function checkIsValid(){
       
       alert('Veuillez accepté les conditions d\'utilisations');
     }
-  //   }
-  // })
+
 
 

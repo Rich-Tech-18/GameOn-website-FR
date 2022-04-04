@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="utf-8" />
     <title>Reservation</title>
@@ -13,20 +13,22 @@
   </head>
   <body>
     <div class="topnav" id="myTopnav">
-      <div class="header-logo">
-      <img alt="logo" src="Logo.png" width="auto" height="auto" />
-    </div>
-    <div class="main-navbar">
       
+    <div class="main-navbar">
+      <div class="header-logo">
+        <img alt="logo" src="Logo.png" width="auto" height="auto" />
+      </div>
       <a href="#" class="active"><span>Accueil</span></a>
-      <a href="#"><span>Détails de l'évènement</span></a>
-      <a href="#"><span>À propos</span></a>
-      <a href="#"><span>Contact</span></a>
-      <a href="#"><span>Évènements passés</span></a>
-      <a href="javascript:void(0);" class="icon" onclick="editNav()">
-        <i class="fa fa-bars"></i>
-      </a>
-    </div>
+      <a href="#" class="active"><span>Détails de l'évènement</span></a>
+      <a href="#" class="active"><span>À propos</span></a>
+      <a href="#" class="active"><span>Contact</span></a>
+      <a href="#" class="active"><span>Évènements passés</span></a>
+      
+       
+        
+      
+    </div> 
+    <div><a href="javascript:void(0);" class="icon" onclick="editNav()"><i class="fa fa-bars"></i></a></div>
     </div>
   </div>
     <main>
@@ -60,54 +62,65 @@
               name="reserve"
               action="index.html"
               method="get"
-              onsubmit="return validate();"
+              onsubmit="return false;"
             >
               <div
                 class="formData">
-                <label>Prénom</label><br>
+                <label for="Prénom">Prénom</label><br>
                 <input
                   class="text-control"
                   type="text"
-                  id="first"
+                  id="Prénom"
                   name="first"
                   minlength="2"
+                  required
                 /><br>
+                <div class="error" id="first"></div>
               </div>
               <div
                 class="formData">
-                <label>Nom</label><br>
+                <label for="nom">Nom</label><br>
                 <input
                   class="text-control"
                   type="text"
-                  id="last"
+                  id="nom"
                   name="last"
+                  required
                 /><br>
               </div>
+              <div class="error" id="last"></div>
               <div
                 class="formData">
-                <label>E-mail</label><br>
+                <label for="mail">E-mail</label><br>
                 <input
                   class="text-control"
                   type="email"
-                  id="email"
+                  id="mail"
                   name="email"
+                  required
                 /><br>
               </div>
+              <div class="error" id="email"></div>
               <div
                 class="formData">
-                <label>Date de naissance</label><br>
+                <label for="birthdate">Date de naissance</label><br>
                 <input
                   class="text-control"
                   type="date"
+                  min="1950-01-01"
+                  max="2022-03-30"
                   id="birthdate"
-                  name="birthdate"
-                /><br>
+                  name="naissance"
+                  required
+                ><br>
               </div>
+              <div class="error" id="naissance"></div>
               <div
                 class="formData">
-                <label>À combien de tournois GameOn avez-vous déjà participé ?</label><br>
-                <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99">
+                <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
+                <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99" value="0" required>
               </div>
+              <div class="error" id="quantity"></div>
               <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
               <div
                 class="formData">
@@ -117,6 +130,7 @@
                   id="location1"
                   name="location"
                   value="New York"
+                  required
                 />
                 <label class="checkbox-label" for="location1">
                   <span class="checkbox-icon"></span>
@@ -178,7 +192,7 @@
                   Portland</label
                 >
               </div>
-
+              <div class="error" id="radio"></div>
               <div
                 class="formData">
                 <input
@@ -186,8 +200,9 @@
                   type="checkbox"
                   id="checkbox1"
                   checked
+                  required
                 />
-                <label class="checkbox2-label" for="checkbox1" required>
+                <label class="checkbox2-label" for="checkbox1" >
                   <span class="checkbox-icon"></span>
                   J'ai lu et accepté les conditions d'utilisation.
                 </label>
@@ -204,6 +219,7 @@
                 type="submit"
                 class="button"
                 value="C'est parti"
+                onclick="validate()"
               />
             </form>
           </div>

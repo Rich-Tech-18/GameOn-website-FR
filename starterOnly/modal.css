@@ -611,16 +611,37 @@ footer {
 }
 
 #buttonFermetureModal{
-  position: absolute;
-  top: 600px;
-  left: 134px;
+  margin-top: 310px;
 
 }
 
 #merci{
+  margin-top: 290px;
   text-align: center;
 }
 
 .hidden{
   display: none;
+}
+
+
+
+
+@keyframes alert {
+  0%{
+    border: 2px solid #e54858;
+  }
+  25%{
+    border: 2px solid #279e7a;
+  }
+  50%{
+    border: 2px solid #e54858;
+  }
+  75%{
+    border: 2px solid #279e7a;
+  }
+}
+
+.alertInput{
+  animation: alert 3s;
 }

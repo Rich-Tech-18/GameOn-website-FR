@@ -53,6 +53,9 @@ function addEvent(element, evnt, funct){
   }
 };
 
+addEvent(buttonSubmit, 'click', function(event){
+  event.preventDefault();
+});
 
 // function qui ferme la modal au click sur la croix
 
@@ -61,7 +64,10 @@ addEvent(cruxModal, 'click', function(){
     for(let i = 0; i <=12; i++){
       input[i].style.border = 'none'
       input[i].value = '';
-      input[i].checked = false;
+      if (input[i].checked === true){
+        input[i].checked = false;
+      }
+      
     }
 
 
@@ -75,15 +81,13 @@ addEvent(window, 'click', function(event){
       for(let i = 0; i <=12; i++){
         input[i].style.border = 'none'
         input[i].value = '';
-        input[i].checked = false;
+        if (input[i].checked === true){
+          input[i].checked = false;
+        }
       }
-      // window.location.reload();
     }
   }
   );
-
-
-
 
 
 // validation du formulaire, si la condition est vrai, remise à zéro des champs du formulaire
@@ -92,7 +96,17 @@ function validate() {
   if (checkCondition.checked === false){
     checkIsValid();
   }else{
-  form.style.visibility = "hidden";
+    if( isDisabledSubmit() === false){
+      alert('Veuillez remplir le formulaire d\'inscription');
+      for(let i=0; i<=4; i++){
+        if (input[i].value === ''){
+          testFormulaireErreur(input[i]);
+          // input[i].style.border = '2px solid #e54858';
+        }
+      }
+    }
+    else{
+        form.style.visibility = "hidden";
   form.style.display = 'none';
   modalBody.classList.add('formulaireEnvoie');
   const newDiv = document.createElement('div');
@@ -116,7 +130,17 @@ function validate() {
       input[i].value = '';
       input[i].checked = false;
     }
+    checkCondition.checked = true;
   });
+  
+  prenomDisabled = false;
+  nameDisabled = false;
+  dateDisabled = false;
+  mailDisabled = false;
+  quantityDisabled = false;
+  disableRadio = false;
+    }
+
 }
 };
 
@@ -134,7 +158,7 @@ function testFormulaireErreur(champsFormulaire){
 // fonction pour tester la validation
 
 function testFormulaireValide(champsFormulaire){
-  champsFormulaire.style.border = '2px solid green';
+  champsFormulaire.style.border = '2px solid #279e7a';
   document.querySelector('#'+champsFormulaire.name).textContent = ' ';
 };
 
@@ -148,14 +172,15 @@ function regex(regex){
 
 function isDisabledSubmit(){
   if (prenomDisabled === true && nameDisabled === true && dateDisabled === true && mailDisabled === true && quantityDisabled === true && disableRadio === true){
-    buttonSubmit.removeAttribute('disabled');
+    return true;
   }else{
-    buttonSubmit.setAttribute('disabled', 'false');
+    return false;
   }
 }
 isDisabledSubmit();
 
 // suite d'event aux input du formulaire qui teste la validité des champs souhaité par des REGEX
+
 
 addEvent(prenom, 'input', function(e){
   if(regex(/[a-zA-Z]{2}/.test(e.target.value))){
@@ -195,7 +220,7 @@ addEvent(mail, 'input', function(e){
 });
 
 addEvent(birthdate, 'input', function(e){
-  if(regex(/[1]{1}[9]{1}[0-9]{1}[0-9]{1}[-]{1}[0-9]{2}[-]{1}[0-9]{2}/.test(e.target.value)) || regex(/[2]{1}[0]{1}[0-9]{1}[0-9]{1}[-]{1}[0-9]{2}[-]{1}[0-9]{2}/.test(e.target.value))){
+  if(regex(/[1|2]{1}[9|0]{1}[0-9]{1}[0-9]{1}[-]{1}[0-9]{2}[-]{1}[0-9]{2}/.test(e.target.value))){
     testFormulaireValide(birthdate);
     dateDisabled = true;
     isDisabledSubmit();
@@ -204,7 +229,6 @@ addEvent(birthdate, 'input', function(e){
     dateDisabled = false;
     isDisabledSubmit();
   }
-  console.log(e.target.value)
 });
 
 addEvent(quantity, 'input', function(e){
@@ -236,6 +260,4 @@ for(let i=0; i<=5; i++){
       
       alert('Veuillez accepté les conditions d\'utilisations');
     }
-
-
 

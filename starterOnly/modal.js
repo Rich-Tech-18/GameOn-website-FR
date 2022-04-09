@@ -25,6 +25,7 @@ const mail = document.querySelector('#mail');
 const birthdate = document.querySelector('#birthdate');
 const quantity = document.querySelector('#quantity');
 const value = document.getElementsByName('location');
+const number = document.getElementsByName('number');
 const buttonSubmit = document.querySelector('.btn-submit');
 const checkCondition = document.getElementById('checkbox1')
 let prenomDisabled = false;
@@ -148,10 +149,14 @@ function validate() {
 
 function testFormulaireErreur(champsFormulaire){
     champsFormulaire.style.border = '2px solid #e54858';
-    document.querySelector('#'+champsFormulaire.name).textContent = 'le '+ champsFormulaire.id + ' n\'est pas valide';
-
     if (champsFormulaire.id === "birthdate"){
       document.querySelector('#'+champsFormulaire.name).textContent = 'la date de naissance n\'est pas valide';
+    }
+    else if (champsFormulaire.id === "quantity"){
+      document.querySelector('#'+champsFormulaire.name).textContent = 'entrer un nombre entier';
+    }
+    else {
+      document.querySelector('#'+champsFormulaire.name).textContent = 'le '+ champsFormulaire.id + ' n\'est pas valide';
     }
 };
 
@@ -259,5 +264,6 @@ for(let i=0; i<=5; i++){
     function checkIsValid(){
       
       alert('Veuillez accepté les conditions d\'utilisations');
-    }
+    };
+
 

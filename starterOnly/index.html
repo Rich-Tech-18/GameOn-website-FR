@@ -16,7 +16,7 @@
       
     <div class="main-navbar">
       <div class="header-logo">
-        <img alt="logo" src="Logo.png" width="auto" height="auto" />
+        <img alt="logo" src="Logo.png"/>
       </div>
       <a href="#" class="active"><span>Accueil</span></a>
       <a href="#" class="active"><span>Détails de l'évènement</span></a>
@@ -30,7 +30,7 @@
     </div> 
     <div><a href="javascript:void(0);" class="icon" onclick="editNav()"><i class="fa fa-bars"></i></a></div>
     </div>
-  </div>
+  
     <main>
       <div class="hero-section">
         <div class="hero-content">
@@ -118,9 +118,9 @@
               <div
                 class="formData">
                 <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
-                <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99" required>
+                <input type="number" class="text-control" id="quantity" name="quantityNumber" min="0" max="99" step='1' required>
               </div>
-              <div class="error" id="quantity"></div>
+              <div class="error" id="quantityNumber"></div>
               <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
               <div
                 class="formData">

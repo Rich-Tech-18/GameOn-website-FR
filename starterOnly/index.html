@@ -70,12 +70,12 @@
                 <input
                   class="text-control"
                   type="text"
-                  id="Prénom"
+                  id="first"
                   name="first"
                   minlength="2"
                   required
                 /><br>
-                <div class="error" id="first"></div>
+                <div class="error" id="firstTextError"></div>
               </div>
               <div
                 class="formData">
@@ -83,12 +83,12 @@
                 <input
                   class="text-control"
                   type="text"
-                  id="nom"
+                  id="last"
                   name="last"
                   required
                 /><br>
               </div>
-              <div class="error" id="last"></div>
+              <div class="error" id="lastTextError"></div>
               <div
                 class="formData">
                 <label for="mail">E-mail</label><br>
@@ -96,11 +96,11 @@
                   class="text-control"
                   type="email"
                   id="mail"
-                  name="email"
+                  name="mail"
                   required
                 /><br>
               </div>
-              <div class="error" id="email"></div>
+              <div class="error" id="mailTextError"></div>
               <div
                 class="formData">
                 <label for="birthdate">Date de naissance</label><br>
@@ -110,17 +110,18 @@
                   min="1950-01-01"
                   max="2022-03-30"
                   id="birthdate"
-                  name="naissance"
+                  name="birthdate"
                   required
                 ><br>
               </div>
-              <div class="error" id="naissance"></div>
+              <div class="error" id="birthdateTextError"></div>
               <div
                 class="formData">
                 <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
                 <input type="number" class="text-control" id="quantity" name="quantityNumber" min="0" max="99" step='1' required>
               </div>
-              <div class="error" id="quantityNumber"></div>
+              <div class="error" id="quantityTextError"></div>
+              <div class="error" id="quantityText"></div>
               <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
               <div
                 class="formData">
@@ -192,7 +193,7 @@
                   Portland</label
                 >
               </div>
-              <div class="error" id="radio"></div>
+              <div class="error" id="locationTextError"></div>
               <div
                 class="formData">
                 <input
@@ -207,6 +208,7 @@
                   J'ai lu et accepté les conditions d'utilisation.
                 </label>
                 <br>
+                <div class="error" id="checkbox1TextError"></div>
                 <input class="checkbox-input" type="checkbox" id="checkbox2" />
                 <label class="checkbox2-label" for="checkbox2">
                   <span class="checkbox-icon"></span>

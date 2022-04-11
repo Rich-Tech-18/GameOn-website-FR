@@ -19,12 +19,12 @@ const cruxModal = document.querySelector(".close");
 const form = document.querySelector('form');
 const modalBody = document.querySelector('.modal-body');
 const input = document.querySelectorAll('input');
-const prenom = document.querySelector('#Prénom');
-const nom = document.querySelector('#nom');
+const prenom = document.querySelector('#first');
+const nom = document.querySelector('#last');
 const mail = document.querySelector('#mail');
 const birthdate = document.querySelector('#birthdate');
 const quantity = document.querySelector('#quantity');
-const value = document.getElementsByName('location');
+const value = document.querySelector('input[name="location"]:checked');
 const number = document.getElementsByName('number');
 const buttonSubmit = document.querySelector('.btn-submit');
 const checkCondition = document.getElementById('checkbox1')
@@ -34,6 +34,7 @@ let dateDisabled = false;
 let mailDisabled = false;
 let quantityDisabled = false;
 let disableRadio = false;
+let testValue = '';
 
 // ouvre la modal au click
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -133,7 +134,7 @@ function validate() {
     }
     checkCondition.checked = true;
   });
-  
+  testValue = '';
   prenomDisabled = false;
   nameDisabled = false;
   dateDisabled = false;
@@ -149,14 +150,29 @@ function validate() {
 
 function testFormulaireErreur(champsFormulaire){
     champsFormulaire.style.border = '2px solid #e54858';
-    if (champsFormulaire.id === "birthdate"){
-      document.querySelector('#'+champsFormulaire.name).textContent = 'la date de naissance n\'est pas valide';
+    if(champsFormulaire.id === "first")
+     {
+      document.querySelector('#firstTextError').textContent = 'Veuillez entrer 2 caractères ou plus pour le champ du prénom.';
+    }
+    else if(champsFormulaire.id === "last")
+     {
+      document.querySelector('#lastTextError').textContent = 'Veuillez entrer 2 caractères ou plus pour le champ du nom.';
+    }
+    else if(champsFormulaire.id === "mail")
+     {
+      document.querySelector('#mailTextError').textContent = 'Vous devez entrer un e-mail valide.';
+    }
+    else if (champsFormulaire.id === "birthdate"){
+      document.querySelector('#birthdateTextError').textContent = 'Vous devez entrer votre date de naissance.';
     }
     else if (champsFormulaire.id === "quantity"){
-      document.querySelector('#'+champsFormulaire.name).textContent = 'entrer un nombre entier';
+      document.querySelector('#quantityTextError').textContent = 'entrer un nombre entier.';
+    }
+    else if(champsFormulaire.id === "checkbox1"){
+      document.querySelector('#checkbox1TextError').textContent = 'Vous devez vérifier que vous acceptez les termes et conditions.';
     }
     else {
-      document.querySelector('#'+champsFormulaire.name).textContent = 'le '+ champsFormulaire.id + ' n\'est pas valide';
+      document.querySelector('#firstText').textContent ='';
     }
 };
 
@@ -164,7 +180,7 @@ function testFormulaireErreur(champsFormulaire){
 
 function testFormulaireValide(champsFormulaire){
   champsFormulaire.style.border = '2px solid #279e7a';
-  document.querySelector('#'+champsFormulaire.name).textContent = ' ';
+  document.querySelector('#'+champsFormulaire.id+'TextError').textContent = ' ';
 };
 
 //fonction pour stocker une REGEX
@@ -176,7 +192,7 @@ function regex(regex){
 // fonction pour tester si tout les champs du formulaire sont bien remplis.
 
 function isDisabledSubmit(){
-  if (prenomDisabled === true && nameDisabled === true && dateDisabled === true && mailDisabled === true && quantityDisabled === true && disableRadio === true){
+  if (prenomDisabled === true && nameDisabled === true && dateDisabled === true && mailDisabled === true && quantityDisabled === true && checkLocation() === true){
     return true;
   }else{
     return false;
@@ -248,16 +264,36 @@ addEvent(quantity, 'input', function(e){
   }
 });
 
-for(let i=0; i<=5; i++){
-  addEvent(value[i], 'click', function(){
-    for(let i=0; i<=5; i++){
-      if (value[i].checked === true) {
-      disableRadio = true;
-      isDisabledSubmit();
+addEvent(checkCondition, 'click', function(){
+  if(checkCondition.checked === true){
+    testFormulaireValide(checkCondition);
+    // quantityDisabled = true;
+    isDisabledSubmit();
+  } else if (checkCondition.checked === false){
+    testFormulaireErreur(checkCondition);
+    // quantityDisabled = false;
+    isDisabledSubmit();
+  } else {
+    isDisabledSubmit();
+  }
+});
+
+
+  addEvent(buttonSubmit, 'click', function(){
+    isDisabledSubmit();
+  });
+
+  function checkLocation(){
+   let checkedValue = document.querySelector('input[name="location"]:checked');
+    if(checkedValue == null){
+      disableRadio = false;
+      document.querySelector('#locationTextError').textContent = 'Vous devez choisir une option.';
     }else{
-      isDisabledSubmit();
+      disableRadio = true;
+     document.querySelector('#locationTextError').textContent = '';
     }
-  }})};
+   return disableRadio;
+  }
 
   // fait apparaitre un message d'alert si les conditions général ne sont pas cocher
 

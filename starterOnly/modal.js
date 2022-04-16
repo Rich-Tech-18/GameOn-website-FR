@@ -204,14 +204,16 @@ isDisabledSubmit();
 
 
 addEvent(prenom, 'input', function(e){
+  //mettre isDisabledSubmit() au début!!!
+  //isDisabledSubmit();
   if(regex(/[a-zA-Z]{2}/.test(e.target.value))){
     testFormulaireValide(prenom);
     prenomDisabled = true;
-   isDisabledSubmit();
+   
   } else{
     testFormulaireErreur(prenom);
     prenomDisabled = false;
-    isDisabledSubmit();
+
   }
   
 });
